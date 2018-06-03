@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mehulmpt/waves18#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongo": "^0.1.0",
     "mongoose": "^5.1.2"
