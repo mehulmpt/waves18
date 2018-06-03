@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
-const fs = require('fs')
 const routes = require('./routes')
 const bodyParser = require('body-parser')
 
@@ -16,7 +15,7 @@ const bodyParser = require('body-parser')
     routes(app)
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../frontend/templates/404.html'))
+        res.status(404).sendFile(path.resolve(__dirname, '../frontend/templates/404.html'))
     })
 
     app.listen(1337, () => console.log('Listening on [::1]:1337'))

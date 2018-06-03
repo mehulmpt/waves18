@@ -1,5 +1,6 @@
 const path = require('path')
 const Fest = require('./models/FestReg')
+const fs = require('fs')
 
 function customValidation(name, email, college, mobile) {
     return true // implement this
@@ -8,12 +9,17 @@ function customValidation(name, email, college, mobile) {
 module.exports = function(app) {
 
 
-app.get('/', (req, res, next) => {
+app.get('/', (req, res) => {
     const file = path.resolve(__dirname, '../frontend/templates/index.html')
     res.sendFile(file)
 })
 
-app.get('/event/:eventname', (req, res) => {
+app.get('/event/:eventname', (req, res, next) => {
+    
+    const event = req.params.eventname
+
+    if(event == "index" || event == "404") return next()
+
     const file = path.resolve(__dirname, `../frontend/templates/${event}.html`)
     if(fs.existsSync(file)) {
         return res.sendFile(file)
