@@ -6,7 +6,11 @@ const routes = require('./routes')
 const bodyParser = require('body-parser')
 
 ;(async function() {
-    await mongoose.connect('mongodb://localhost/waves') // mongo up
+
+    const mongoPort = process.env.NODE_ENV === 'production' ? 18510 : 27017
+    const nodePort = process.env.NODE_ENV === 'production' ? 28221: 1337
+
+    await mongoose.connect(`mongodb://localhost:${mongoPort}/waves`) // mongo up
 
     app.use(express.static(path.join(__dirname, '../frontend')))
     
@@ -19,5 +23,5 @@ const bodyParser = require('body-parser')
         res.status(404).sendFile(path.resolve(__dirname, '../frontend/templates/404.html'))
     })
 
-    app.listen(1337, () => console.log('Listening on [::1]:1337'))
+    app.listen(nodePort, () => console.log(`Listening on [::1]:${nodePort}`))
 })()
