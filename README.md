@@ -10,34 +10,47 @@
 
 ## API Hooks
 
-### /event/:template
+## /:page
 
-Anything hit on above URL will be traslated as `frontend/templates/:template.html` on the filesystem. Some examples:
+Anything hitting on above URL will be translated as `frontend/templates/:page.html` on the filesystem. Some examples:
 
 ```
-http://localhost:7331/event/path1 ---> frontend/templates/path1.html
-http://localhost:7331/event/path2 ---> frontend/templates/path2.html
+http://localhost:7331/page1 ---> frontend/templates/page1.html
+http://localhost:7331/page2 ---> frontend/templates/page2.html
 
 
 http://localhost:7331/ ---> frontend/templates/index.html (Backend configured)
 http://localhost:7331/* ---> frontend/templates/404.html (404 | Backend configured) 
 ```
 
-### /fest-registration
+### /event/:template
+
+Anything hit on above URL will be traslated as `frontend/templates/events/:template.html` on the filesystem. Some examples:
+
+```
+http://localhost:7331/event/path1 ---> frontend/templates/events/path1.html
+http://localhost:7331/event/path2 ---> frontend/templates/events/path2.html
+
+
+http://localhost:7331/ ---> frontend/templates/index.html (Backend configured)
+http://localhost:7331/* ---> frontend/templates/404.html (404 | Backend configured) 
+```
+
+### /event/:eventname
 
 #### JS Call
 
 ```js
 const data = { 
     name: 'NAME OF USER', 
-    college: 'NAME OF COLLEGE', 
+    collegename: 'NAME OF COLLEGE', 
     email: 'EMAIL OF USER', 
     mobile: 'MOBILE NUMBER OF USER' 
 }
 const headers = {
     'Content-Type': 'application/json'
 }
-fetch('/fest-registration', { method: 'POST', body: JSON.stringify(data), headers })
+fetch('/event/:eventname', { method: 'POST', body: JSON.stringify(data), headers })
 ```
 
 #### Response
@@ -55,3 +68,8 @@ OR
     status: "error",
     message: "appropirate error message here"
 }
+```
+
+#### Valid Events
+
+Valid eventnames are: fest-registration | irshad | inverse | smtf
