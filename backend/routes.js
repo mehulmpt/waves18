@@ -1,8 +1,8 @@
 const path = require('path')
-const Fest = require('./models/FestReg')
+const BITSEvent = require('./models/BITSEvent')
 const fs = require('fs')
 
-function customValidation(name, email, college, mobile) {
+function customValidation(name, email, college, mobile, event) {
     return true // implement this
 }
 
@@ -16,31 +16,44 @@ app.get('/', (req, res) => {
 
 app.get('/event/:eventname', (req, res, next) => {
     
-    const event = req.params.eventname
+    const eventname = req.params.eventname
 
-    if(event == "index" || event == "404") return next()
-
-    const file = path.resolve(__dirname, `../frontend/templates/${event}.html`)
+    const file = path.resolve(__dirname, `../frontend/templates/events/${eventname}.html`)
     if(fs.existsSync(file)) {
         return res.sendFile(file)
     }
     next()
 })
 
+app.post('/event/:eventname', async (req, res) => {
+    const event = req.params.eventname
+    const validevents = ['irshad', 'smtf', 'inverse', 'fest-registration']
+    if(validevents.indexOf(event) == -1) return res.json({status: 'error'})
 
-app.post('/fest-registration', async (req, res) => {
-    //debugger
-    const { name, email, college, mobile } = req.body
-    if(!name || !email || !college || !mobile) {
+    debugger
+    const { name, email, collegename, mobile } = req.body
+    if(!name || !email || !collegename || !mobile) {
         return res.status(500).json({ status: 'error', message: 'All fields required' })
     }
 
-    if(customValidation(name, email, college, mobile)) { // TODO: Implement this validation
-        const result = await Fest.addEntry(name, email, college, mobile)
-
+    if(customValidation(name, email, collegename, mobile, event)) { // TODO: Implement this validation
+        const result = await BITSEvent.addEntry(name, email, collegename, mobile, event)
         if(result.status == 'error') return res.status(500).json({ status: 'error', message: result.message })
         return res.json({ status: 'ok' })
     }
+}) 
+
+app.get('/:page', (req, res, next) => {
+    
+    const page = req.params.page
+
+    if(page == "index" || page == "404") return next()
+
+    const file = path.resolve(__dirname, `../frontend/templates/${page}.html`)
+    if(fs.existsSync(file)) {
+        return res.sendFile(file)
+    }
+    next()
 })
 
 

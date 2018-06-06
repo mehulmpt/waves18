@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
     app.use(express.static(path.join(__dirname, '../frontend')))
     
     app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: true }))
     
     routes(app)
 
@@ -19,6 +20,4 @@ const bodyParser = require('body-parser')
     })
 
     app.listen(1337, () => console.log('Listening on [::1]:1337'))
-
-
 })()

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
 
-const FestSchema = mongoose.Schema({
+const BITSEventSchema = mongoose.Schema({
     name: String,
     email: String,
     college: String,
-    mobile: String
+    mobile: String,
+    event: String,
 }, { collection: 'festreg' })
 
-const model = mongoose.model('FestSchema', FestSchema)
+const model = mongoose.model('BITSEventSchema', BITSEventSchema)
 module.exports = model
