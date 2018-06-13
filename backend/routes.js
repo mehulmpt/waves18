@@ -63,4 +63,11 @@ app.post('/contact-us', async (req, res) => {
 })
 
 
+app.get('/entrySuccess', (req, res) => {
+    res.send(`
+    <style> * { margin: 0; padding: 0; }</style>
+    <h1 style="display:flex;position:absolute;width:100vw;height:100vh;top:0;left:0;font-family:monospace;justify-content:center;align-items:center;">You're registered!</h1>`)
+})
+
+
 }
