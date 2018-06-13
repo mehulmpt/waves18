@@ -1,5 +1,6 @@
 const path = require('path')
 const BITSEvent = require('./models/BITSEvent')
+const Message = require('./models/Messages')
 const fs = require('fs')
 
 function customValidation(name, email, college, mobile, event) {
@@ -30,7 +31,7 @@ app.post('/event/:eventname', async (req, res) => {
     const validevents = ['irshad', 'smtf', 'inverse', 'fest-registration']
     if(validevents.indexOf(event) == -1) return res.json({status: 'error'})
 
-    debugger
+    //debugger
     const { name, email, collegename, mobile } = req.body
     if(!name || !email || !collegename || !mobile) {
         return res.status(500).json({ status: 'error', message: 'All fields required' })
@@ -54,6 +55,11 @@ app.get('/:page', (req, res, next) => {
         return res.sendFile(file)
     }
     next()
+})
+
+app.post('/contact-us', async (req, res) => {
+    const {name, email, subject, message} = req.body
+    res.json(await Message.addEntry({name, email, subject, message}))
 })
 
 
