@@ -43,10 +43,10 @@ app.post('/event/:eventname', async (req, res) => {
     if(validevents.indexOf(event) == -1) return res.json({status: 'error'})
 
     //debugger
-    const { name, email, collegename, mobile } = req.body
+    /*const { name, email, collegename, mobile } = req.body
     if(!name || !email || !collegename || !mobile) {
         return res.status(500).json({ status: 'error', message: 'All fields required' })
-    }
+    }*/
 
     if(customValidation(name, email, collegename, mobile, event)) { // TODO: Implement this validation
         const result = await BITSEvent.addEntry(name, email, collegename, mobile, event)
