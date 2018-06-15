@@ -6,6 +6,7 @@ const BITSEventSchema = mongoose.Schema({
     college: String,
     mobile: String,
     event: String,
+    city: String
 }, { collection: 'festreg' })
 
 const model = mongoose.model('BITSEventSchema', BITSEventSchema)
